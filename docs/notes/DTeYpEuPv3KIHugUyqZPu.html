@@ -1,0 +1,80 @@
+<div class="NoteDescWrap"><h1>1226 使用 Dendron 紀錄</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Dendron</span></div><span>更新時間: 2022/3/20 上午 01:40</span> | <span>新增時間: 2022/3/20 上午 01:40</span></div><h2>使用 Dendron 紀錄</h2>
+<h3>Dendron 簡介</h3>
+<p>筆記都可以方便被記錄，但取出筆記又是一大學問。</p>
+<p>Dendron 主打方便取出筆記 (get notes back out)。
+作者 <a href="https://www.dendron.so/about">Kevin</a> 說道 Dendron 有以下三特點:</p>
+<ul>
+<li><a href="https://wiki.dendron.so/notes/f1af56bb-db27-47ae-8406-61a98de6c78c/">Note Reference</a></li>
+<li><a href="https://wiki.dendron.so/notes/eea2b078-1acc-4071-a14e-18299fc28f47/#refactor-hierarchy">Commands</a></li>
+<li><a href="https://wiki.dendron.so/notes/a7c3a810-28c8-4b47-96a6-8156b1524af3/">Lookup</a></li>
+</ul>
+<p>總之，寫筆記可以變得像在寫程式，可以加入「參考」，如果「參考」不存在，還可以幫你新增一個對應的空白參考。</p>
+<p>檔案分類以資料夾檔名分類，每篇筆記會有一個獨一無二的 id，同時一個 id 會有一個 title (文章標題)。</p>
+<p>當使用者想將文章移去其他分類時只要改檔名就好，檔名命名邏輯以「.」分層，第一層.第二層.第三層... 以此類推。</p>
+<p>另外還有 Note Graph 的功能 <code>ctrl+shift+P</code>、<code>Dendron: Show Note Graph</code> 就可以看到整個 vault 的結構 (下圖為我目前的 Note Graph)。</p>
+<p><img src="/assets/images/2022-01-01-13-19-20.png" alt="" /></p>
+<p><a href="https://wiki.dendron.so/notes/c5e5adde-5459-409b-b34d-a0d75cbb1052/">綱要(Schemas)</a> 是用 YAML 來為筆記設定基礎樣板。</p>
+<p>支援 <a href="https://mermaid-js.github.io/mermaid/#/">mermaid-js</a>。</p>
+<p>另外 Dendron 提供了不少 <a href="https://wiki.dendron.so/notes/BWYKFQ8297OgfWWyV7Bgn/">組織(Organizing)</a> 筆記的功能 (Tags 就是其中一種)，另外也有給團隊使用的組織方式。</p>
+<p><img src="/assets/images/2022-01-01-13-41-23.png" alt="" /></p>
+<blockquote>
+<p>有這麼多組織(Organizing)的方式...(水好深)。🤤</p>
+</blockquote>
+<p>另外 Dendron 還可以部署到 Github Pages 上，詳情請參閱官網: <a href="https://wiki.dendron.so/notes/yg3EL1x9fEe4NMqxUC3jP/">Dendron to Github Pages</a>。</p>
+<p>下載 <code>Dendron CLI</code> 後可以將筆記轉成資料、並套上 <code>Next.js</code> 的部落格樣板，<code>git push</code> 到 github 上做些設定就可以看到部落格了。🎉</p>
+<p>所以 <code>Next.js</code> 的使用者有福了!可以用熟悉的網頁框架客製化自己的部落格。</p>
+<p>謝謝 Dendron 作者們讓菜雞如我可以接觸 <code>Next.js</code>。😆</p>
+<h3>撰寫文章</h3>
+<p>選擇在欲要新增文章的 parent .md 檔上，<code>Dendron: Lookup (Ctrl+L / Cmd+L) </code>，輸入檔名就可以開始寫新筆記了。</p>
+<h3>建置並預覽筆記</h3>
+<ul>
+<li><p><strong>Preview</strong></p>
+<p><code>npx dendron publish dev</code></p>
+<p>http://localhost:3000 在本機查看網站，<code>Crtl+C</code> 離開終端機。</p>
+</li>
+<li><p><strong>Publish</strong></p>
+<p><code>npx dendron publish export --target github</code></p>
+<p>以 target github 輸出網站。</p>
+</li>
+</ul>
+<p>參考資料:
+https://wiki.dendron.so/notes/yg3EL1x9fEe4NMqxUC3jP/</p>
+<hr />
+<h3>.next 專案 fork 來源</h3>
+<p>https://github.com/dendronhq/nextjs-template</p>
+<hr />
+<h2>問題紀錄</h2>
+<h3>github page build 失敗</h3>
+<pre><code class="language-bash">  /usr/bin/git submodule sync
+  Error: fatal: No url found for submodule path '.next' in .gitmodules
+</code></pre>
+<p><img src="/assets/images/2021-12-31-19-23-24.png" alt="" /></p>
+<p>解答: https://stackoverflow.com/questions/4185365/no-submodule-mapping-found-in-gitmodule-for-a-path-thats-not-a-submodule</p>
+<ul>
+<li><p>問題起因: <code>git submodule update --init</code> 發生 No submodule mapping found in .gitmodules 問題。</p>
+<p>覺得應該是一開始我 <code>git init</code> 時，忘記先將 .next 排除版控 <code>echo .next &gt;&gt; .gitignore</code>。</p>
+<p>造成 .git 版控出了一些問題 (.next 自己也有一個 .git 版控)，執行下面的指令後就好了。</p>
+</li>
+<li><p><code>git rm --cached .next</code></p>
+<p><a href="https://git-scm.com/docs/git-rm">git 官網參數說明</a></p>
+<pre><code class="language-bash">--cached
+Use this option to unstage and remove paths only from the index.
+Working tree files, whether modified or not, will be left alone.
+</code></pre>
+<p>取消追蹤 .next 資料夾版控後，github page build 就可以順利完成 github page 的 build 了。 😄</p>
+</li>
+</ul>
+<h3>npx dendron publish dev ctrl+c 以後 port 沒有清掉</h3>
+<p><code>netstat -a</code> 查看使用中連線。</p>
+<p><code>npx kill-port 3000</code> 清除 3000 port。</p>
+<p>參考網址: https://stackoverflow.com/questions/39632667/how-do-i-kill-the-process-currently-using-a-port-on-localhost-in-windows</p>
+<h3>加入 Disqus 留言板</h3>
+<p>參考資料:</p>
+<ul>
+<li><a href="https://imranhsayed.medium.com/disqus-is-a-networked-community-platform-used-by-hundreds-of-thousands-of-sites-all-over-the-web-39b88bafaca5">Integrating Disqus in your Next.js React Application by Imran Sayed</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10242269">如何安裝 Disqus 留言板</a></li>
+</ul>
+<h3>為標題編號</h3>
+<p>下載 vscode 套件 <a href="https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one">markdown all in one</a></p>
+<p><code>shift + ctrl + P</code> 輸入 number 然後選這個，就會自動編號了。</p>
+<p><img src="/assets/images/2022-02-08-18-31-50.png" alt="" /></p>

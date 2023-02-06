@@ -1,0 +1,107 @@
+<div class="NoteDescWrap"><h1>0907 [C#] 從 List 到 IEnumerable 和 IQueryable</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.C#</span></div><span>更新時間: 2022/9/8 上午 12:19</span> | <span>新增時間: 2022/9/8 上午 12:19</span></div><h2>IEnumerable vs List - 如何使用? 他們是如何運作的?</h2>
+<p>以下取自: https://stackoverflow.com/questions/3628425/ienumerable-vs-list-what-to-use-how-do-they-work/3628465</p>
+<ul>
+<li><p>一個類別實作 <code>IEnumerable</code> 的話，可以讓你使用 <code>foreach</code> 語法。</p>
+<blockquote>
+<p>A class that implement <code>IEnumerable</code> allows you to use the <code>foreach</code> syntax.</p>
+</blockquote>
+</li>
+<li><p>一個 <code>IEnumerable</code> linq 陳述式，當你在使用 <code>foreach</code> 的時候會執行迭代，但你可以使用 <code>.ToList()</code> 強迫他馬上迭代。</p>
+<blockquote>
+<p>An <code>IEnumerable</code> linq statement executes when you iterate the <code>foreach</code>, but you can force it to iterate sooner using <code>.ToList()</code>.</p>
+</blockquote>
+</li>
+<li><p><code>IEnumerable</code> 是唯獨的，而 <code>List</code> 並不是.</p>
+<blockquote>
+<p><code>IEnumerable</code> is read-only and <code>List</code> is not.</p>
+</blockquote>
+</li>
+<li><p>當你使用 <code>IEnumerable</code> 你給編譯器一個機會推遲執行，在這期間可能有所優化。</p>
+<blockquote>
+<p>When you use <code>IEnumerable</code>, you give the compiler a chance to defer work until later, possibly optimizing along the way.</p>
+</blockquote>
+</li>
+<li><p>如果你使用 <code>ToList()</code> 你強迫編譯器馬上實體化出結果。</p>
+<blockquote>
+<p>If you use <code>ToList()</code> you force the compiler to reify(實體化) the results right away.</p>
+</blockquote>
+</li>
+</ul>
+<h2>LINQ 不會產生 Sql 去查詢(query)資料庫，直到你列舉(enumerate)他</h2>
+<pre><code>&gt; LINQ doesn't generate the SQL to query the database until you enumerate it
+</code></pre>
+<ul>
+<li><p><code>IEnumerable</code> 可以放置(stacking) LINQ expressions。</p>
+</li>
+<li><p>e.g 當你用 <code>foreach</code> 列舉，或者使用 <code>ToList()</code> 才會執行查詢資料庫的動作。</p>
+</li>
+</ul>
+<h1>小結</h1>
+<p>因為 linq 在你列舉他之前，不會去馬上去資料庫抓資料。
+列舉就是指 foreach 和 toList()
+他說 IEnumerable 可以拿來放 LINQ expressions。
+最後要拿資料再 toList() 就好</p>
+<h2>IEnumberable 的大缺點</h2>
+<ul>
+<li><p><a href="https://www.cnblogs.com/powertoolsteam/p/4936818.html">最全数据结构详述: List VS IEnumerable VS IQueryable VS ICollection VS IDictionary</a></p>
+<blockquote>
+<p>使用 IEnumberable 會從服務器端將所有數據拷貝到客戶端，並進行一定的過濾，如果服務器端有大量數據會造成內存負載超重。</p>
+</blockquote>
+</li>
+</ul>
+<h2><code>IEnumerable</code> vs <code>IQueryable</code></h2>
+<ul>
+<li><p><a href="https://stackoverflow.com/questions/2876616/returning-ienumerablet-vs-iqueryablet">Returning <code>IEnumerable&lt;T&gt;</code> vs. <code>IQueryable&lt;T&gt;</code></a></p>
+<blockquote>
+<p>The difference is that <code>IQueryable&lt;T&gt;</code> is the interface that allows LINQ-to-SQL (LINQ.-to-anything really) to work. So if you further refine your query on an <code>IQueryable&lt;T&gt;</code>, that query will be executed in the database, if possible.</p>
+</blockquote>
+<blockquote>
+<p>For the <code>IEnumerable&lt;T&gt;</code> case, it will be LINQ-to-object, meaning that all objects matching the original query will have to be loaded into memory from the database.</p>
+</blockquote>
+</li>
+</ul>
+<h2>小結</h2>
+<ul>
+<li><p>先備觀念:
+linq 在列舉後才會到資料庫撈資料。</p>
+</li>
+<li><p>問題: <code>IEnumerable&lt;T&gt;</code> 和 <code>IQuertable&lt;T&gt;</code> 差別</p>
+<ul>
+<li><code>IEnumerable&lt;T&gt;</code></li>
+</ul>
+<ol>
+<li>LINQ-to-object 可以放置(stacking) LINQ expressions</li>
+<li>但無法修改(新增刪除)。</li>
+<li>列舉時，無論有無下查詢條件，都會從 server 將所有數據拷貝到 client (<code>select * from [dbo.xxx]</code>)。</li>
+</ol>
+<ul>
+<li><code>IQuertable&lt;T&gt;</code></li>
+</ul>
+<ol>
+<li>allows LINQ-to-SQL (LINQ-to-anything really)</li>
+<li>可以放置(stacking) LINQ expressions。</li>
+<li>在列舉前都可對查詢條件做修改。</li>
+</ol>
+</li>
+</ul>
+<h3>可以看這兩篇範例，會更清楚</h3>
+<ul>
+<li><p><a href="https://blog.darkthread.net/blog/iqueryable-experiment/">關於<code>IQueryable&lt;T&gt;</code>特性的小實驗</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/powertoolsteam/p/4936818.html">最全数据结构详述: List VS IEnumerable VS IQueryable VS ICollection VS IDictionary</a></p>
+<blockquote>
+<p><img src="/assets/images/2022-09-07-22-36-54.png" alt="" /></p>
+</blockquote>
+</li>
+</ul>
+<h2>參考資料</h2>
+<ul>
+<li><p><a href="https://blog.darkthread.net/blog/iqueryable-experiment/">關於 <code>IQueryable&lt;T&gt;</code> 特性的小實驗</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/powertoolsteam/p/4936818.html">最全数据结构详述: List VS IEnumerable VS IQueryable VS ICollection VS IDictionary</a></p>
+</li>
+<li><p><a href="https://dotblogs.com.tw/UgiYo/2019/08/10/001704">IEnumerable v.s IQueryable</a></p>
+</li>
+<li><p><a href="https://dotblogs.com.tw/joysdw12/2013/06/07/web-api-odata">[Web API] 讓 Web API 支援 OData 查詢</a></p>
+</li>
+</ul>
