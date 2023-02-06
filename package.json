@@ -2,7 +2,12 @@
   "name": "ng-blog",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx run ng-blog:serve:development",
+    "build": "npm run gen-html-notes-cmd && nx run ng-blog:build:production --base-href=/ngBlog/",
+    "test": "nx test",
+    "gen-html-notes-cmd": "gen-notes.cmd"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.1.0",
