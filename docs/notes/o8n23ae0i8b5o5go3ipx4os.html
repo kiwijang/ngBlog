@@ -1,0 +1,40 @@
+<div class="NoteDescWrap"><h1>0320 JS 小知識(一)</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.JavaScript</span></div><span>更新時間: 2022/3/22 下午 02:43</span> | <span>新增時間: 2022/3/22 下午 02:43</span></div><h2>遞增運算子(++)與遞減運算子(--)</h2>
+<pre><code class="language-javascript">x++ ←→ x = x + 1
+x-- ←→ x = x - 1
+</code></pre>
+<h2>前置運算(Pre Increment)</h2>
+<pre><code class="language-javascript">┌─ x 加一後代入 y
+│    ↑
+↓  ┌───┐
+y = │ ++x; │→ x 代入 x+1 的結果
+    └───┘
+</code></pre>
+<p>前置運算(Pre Increment): 先計算後再給值，y 和 x 的值一致都是計算後的結果(x+1 的值)。</p>
+<h2>後至運算(Post Increment)</h2>
+<pre><code class="language-javascript">┌── y 代入 x 的值
+│        ↑
+│   ┌─ │ ──┐
+↓   │ ┌─┐   │
+y  = │ │ x│++;│
+     │ └─┘   │→ x 後代入 x+1 的結果
+     └─────┘
+</code></pre>
+<p>後至運算(Post Increment): 先給值後再計算，y 可以保留 x+1 之前的值，x 保留 x+1 的值。</p>
+<h2>差別</h2>
+<pre><code class="language-javascript">// Post Increment
+var x = 3;
+var y = x++;
+console.log(x); // 4
+console.log(y); // 3
+console.log(`上一號: ${y}，目前號碼: ${x}`); // 上一號: 3，目前號碼: 4
+
+// Pre Increment
+var x = 3;
+var y = ++x;
+console.log(x); // 4
+console.log(y); // 4
+console.log(`目前人數共 ${x}/${y}`); // 目前人數共 4/4
+</code></pre>
+<p>總之，</p>
+<p>++x 運算符號在前(Pre)，就先進行運算!</p>
+<p>x++ 運算符號在後(Post)，先附值到使用運算子的對象上(x)，再運算。</p>

@@ -1,0 +1,66 @@
+<div class="NoteDescWrap"><h1>0919-[Angular] 驗證與共用元件</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Angular</span></div><span>更新時間: 2022/9/20 上午 01:03</span> | <span>新增時間: 2022/9/20 上午 01:03</span></div><!-- title: tag0418-2021-表單驗證心得記錄
+date: 2021-04-18 18:24:14
+categories: 學習日記 -->
+<p>關於共用表單頁面、表單驗證的 ui 的一些想法...</p>
+<!-- more -->
+<h2>共用元件</h2>
+<p>通常新增和編輯的頁面會需要共用</p>
+<h3>法 1: 蒐集資料用的表單(包含打 api 功能)</h3>
+<h5>📌 新增時</h5>
+<ol>
+<li>要給 api 用的資料會要在共用元件裡蒐集起來，打 api</li>
+</ol>
+<h5>📌 編輯時</h5>
+<ol>
+<li>要先在編輯頁打 api 拿到資料 input 到共用元件</li>
+<li>給 api 用的資料會要在共用元件裡蒐集起來，打 api
+(編輯比新增多一步驟)</li>
+</ol>
+<p>新增頁面和編輯頁面的送出按鈕都會寫在共用元件裡，
+這樣需要多 input 一個參數來看現在是在編輯狀態還是新增狀態，
+然後打 api 會跟著按鈕走，所以打新增和修改的 api 的動作會寫在共用元件裡...</p>
+<p>所以共用元件除了欄位驗證邏輯會寫裡面，還要 input 狀態進去判斷現在是要新增還編輯，還要根據狀態打不同的 api
+那這樣拆成新增編輯 component 就只是為了 routing 比較方便了</p>
+<h3>法 2: ReactiveForm 同步雙向綁定</h3>
+<p>如果我是用 ReactiveForm 做共用元件的話就可以把按鈕放到各自新增和編輯的 component、也可以各自注入 service 打 api
+這樣共用元件的功能就單純很多: 欄位驗證、蒐集資料、角色判斷、控制欄位 disable
+不用幫畫面的按鈕做狀態判斷是否顯示
+然後打 API 前的資料的檢查(轉成字串、是否要吃使用者輸入的資料還是寫死)就是在各自的 component 裡判斷、注入 api 的 service
+<strong>相對法 1 ，法 2 可以讓共用元件更專注在驗證邏輯和資料的邏輯(就不用去在意 input 和新增編輯狀態的管理)</strong>
+所以我從頭到尾只用在意輸入的資料，完全不用去管什麼時候要 input output、 input output 的值變化後什麼時候被什麼事件觸發去改變值
+我只要輸入資料，資料就在共用元件裡經過驗證，並根據傳入的資料做介面的變化
+其他打 api 的動作也拆出去在共用元件以外的地方做，讓共用元件真的就只用做 ui 與資料驗證的控制就好</p>
+<p>所以我是比較喜歡用 ReactiveForm 來做共用元件 xD</p>
+<h4>法 2 demo</h4>
+<p><a href="https://stackblitz.com/edit/angular-ivy-qaqscf?file=src/app/app.component.ts">⚡stackblitz ReactiveForm 共用元件</a></p>
+<blockquote>
+<p>此 demo 參考自 <a href="https://coryrylan.com/blog/building-reusable-forms-in-angular">Building Reusable Forms in Angular - Cory Rylan</a></p>
+</blockquote>
+<h4>參考資料</h4>
+<p><a href="https://ithelp.ithome.com.tw/articles/10195280">[功能介紹-10] Reactive Forms (Model-Driven Forms)</a></p>
+<hr />
+<h2>欄位驗證</h2>
+<p><a href="https://indepth.dev/posts/1224/angular-forms-useful-tips">Angular Forms: Useful Tips - Armen Vardanyan</a></p>
+<blockquote>
+<p>Forms are not type-safe</p>
+</blockquote>
+<ul>
+<li>可以使用 Pipes 做 ui 顯示轉換的處理</li>
+<li>可以使用 Directives 做表單的驗證處理</li>
+</ul>
+<h3>欄位驗證的方式</h3>
+<ul>
+<li><p>只能輸入...: 只能輸入中英、只能輸入英文、只能輸入數字、只能輸入特定幾個字
+=&gt; 直接讓使用者不能敲除了規定以外的字就不用做錯誤提示了!(使用者在輸入時將不符合規定的都置換成空字串'')</p>
+</li>
+<li><p>限制字數
+=&gt; 使用 html <code>&lt;input type=&quot;text&quot;&gt;</code> 的 <code>maxlength</code> 去限制字數
+不要用 <code>type=&quot;number&quot;</code> 不然沒辦法精準控制輸入的字數...</p>
+</li>
+<li><p>錯誤提示: 達到特定條件要提示錯誤，如. 必須大於 0、起訖日有誤
+=&gt; 用 (input) 和 (change) 去綁事件判斷不符合條件時 formControl 要 setErrors() 並加入 html 提示
+可以將事件方法和錯誤 dom 抽出來寫成 directive</p>
+</li>
+</ul>
+<h4>錯誤題示 directive demo</h4>
+<p><a href="https://stackblitz.com/edit/angular-ivy-bsunxe?file=src/app/app.component.html">⚡stackblitz 將錯誤題示寫成 directive</a></p>

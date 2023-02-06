@@ -1,0 +1,30 @@
+<div class="NoteDescWrap"><h1>1115 [Angular] 讓 mainjs 變小</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Angular</span></div><span>更新時間: 2023/2/2 下午 06:13</span> | <span>新增時間: 2023/2/2 下午 06:13</span></div><h2>讓 main.js 變小</h2>
+<ol>
+<li>將 main.js 內的元件抽出去變成 lazyload 的。</li>
+<li>使用 esm 讓 angular 幫忙 tree-shake，最終只會包含你有使用的部分。</li>
+</ol>
+<h2>視覺化工具</h2>
+<p>主要是參考這篇文章:</p>
+<p><a href="https://www.digitalocean.com/community/tutorials/angular-bundle-size">How To Analyze Angular App Bundle Sizes with webpack Bundle Analyzer or source-map-explorer by Alligator.io</a></p>
+<p>主要參考這篇文章: https://www.digitalocean.com/community/tutorials/angular-bundle-size</p>
+<h2>加入四個指令到 package.json:</h2>
+<pre><code>&quot;build:stats&quot;: &quot;ng run client:build --configuration=sit --base-href=/xxx/ --stats-json&quot;,
+&quot;analyze&quot;: &quot;webpack-bundle-analyzer dist/apps/xxx/stats.json&quot;,
+&quot;client:build:sourcemap&quot;: &quot;ng run client:build --configuration=sit --base-href=/xxx/ --build-optimizer --source-map&quot;,
+&quot;sourcemap:analyze&quot;: &quot;npx source-map-explorer dist/apps/xxx/main.*.js&quot;
+</code></pre>
+<h2>並有安裝套件到 devDependencies:</h2>
+<pre><code>&quot;source-map-explorer&quot;: &quot;^2.5.2&quot;,
+&quot;webpack-bundle-analyzer&quot;: &quot;^4.4.2&quot;
+</code></pre>
+<p>● 記得先更新套件:</p>
+<pre><code>npm i
+</code></pre>
+<p>● webpack-bundle-analyzer 套件依序使用這兩個指令:</p>
+<pre><code>npm run build:stats
+npm run analyze
+</code></pre>
+<p>● source-map-explorer 套件依序使用這兩個指令:</p>
+<pre><code>npm run client:build:sourcemap
+npm run sourcemap:analyze
+</code></pre>
