@@ -1,0 +1,1 @@
+cd ConsoleApp && start markdown2html.exe
