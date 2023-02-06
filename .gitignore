@@ -42,3 +42,6 @@ testem.log
 Thumbs.db
 
 .angular
+
+/ConsoleApp/markdown2html/markdown2html/bin/*
+/ConsoleApp/markdown2html/markdown2html/obj/*
