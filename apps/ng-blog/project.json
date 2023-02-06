@@ -9,15 +9,19 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/ng-blog",
+        "outputPath": "docs",
         "index": "apps/ng-blog/src/index.html",
         "main": "apps/ng-blog/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ng-blog/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/ng-blog/src/favicon.ico", "apps/ng-blog/src/assets"],
+        "assets": [
+          "apps/ng-blog/src/favicon.ico",
+          "apps/ng-blog/src/assets",
+          "apps/ng-blog/src/notes"
+        ],
         "styles": ["apps/ng-blog/src/styles.scss"],
-        "scripts": []
+        "scripts": ["apps/ng-blog/src/assets/ytapi.js"]
       },
       "configurations": {
         "production": {

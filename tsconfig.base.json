@@ -14,7 +14,15 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ng-blog/web/home": ["libs/web/home/src/index.ts"],
+      "@ng-blog/web/note": ["libs/web/note/src/index.ts"],
+      "@ng-blog/web/shell/ui/layout": ["libs/web/shell/ui/layout/src/index.ts"],
+      "@ng-blog/web/shell/ui/sidemenu": [
+        "libs/web/shell/ui/sidemenu/src/index.ts"
+      ],
+      "@ng-blog/web/shell/web-shell": ["libs/web/shell/web-shell/src/index.ts"],
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
