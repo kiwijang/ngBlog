@@ -4,6 +4,9 @@
 dist
 tmp
 /out-tsc
+# npm run gen-html-notes-cmd
+/apps/ng-blog/src/assets/images/*
+/apps/ng-blog/src/notes/*
 
 # dependencies
 node_modules
