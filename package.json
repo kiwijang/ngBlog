@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nx run ng-blog:serve:development",
     "build": "npm run gen-html-notes-cmd && nx run ng-blog:build:production --base-href=/ngBlog/",
+    "build-winserver": "npm run gen-html-notes-cmd && nx run ng-blog:build-winserver:production --base-href=/ngBlog/",
     "test": "nx test",
     "gen-html-notes-cmd": "gen-notes.cmd"
   },
