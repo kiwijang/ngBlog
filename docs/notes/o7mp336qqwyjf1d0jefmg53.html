@@ -1,17 +1,17 @@
-<div class="NoteDescWrap"><h1>0830 在 Windows 使用 MacOS 虛擬機 (使用 WSL2 + OSX-KVM)</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.OS</span></div><span>更新時間: 2023/1/14 下午 07:30</span> | <span>新增時間: 2023/1/14 下午 07:30</span></div><h2>1. 簡述過程</h2>
+<div class="NoteDescWrap"><h1>0830 在 Windows 使用 MacOS 虛擬機 (使用 WSL2 + OSX-KVM)</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.OS</span></div><span>更新時間: 2023/1/14 下午 07:30</span> | <span>新增時間: 2023/1/14 下午 07:30</span></div><h2 id="1-簡述過程">1. 簡述過程</h2>
 <p>想在 Windows 上使用 safari 來檢查網頁畫面是否跑版。</p>
 <p>所以要讓開發中的 Angular 網站在開發同時同步顯示在 MacOS 虛擬機中的 safari、IOS 虛擬機中的 safari 中。</p>
 <p>使用 WSL2 -&gt; 安裝 Ubuntu -&gt; 在 Ubuntu 裡面安裝 QEMU -&gt; 透過 OSX-KVM 安裝 MacOS -&gt; 透過 OSX-KVM 用 QEMU 開啟 MacOS 的虛擬機 -&gt; 在 MacOS 虛擬機中安裝 Xcode 並使用 IOS 模擬器。</p>
 <p>最後設定一些東西，讓此 WSL2 內的虛擬機可以連上電腦本機的 localhost (還有設定螢幕大小和硬體配置)。</p>
-<h2>2. 軟硬體需求</h2>
-<h3>2.1. WSL2</h3>
+<h2 id="2-軟硬體需求">2. 軟硬體需求</h2>
+<h3 id="21-wsl2">2.1. WSL2</h3>
 <p>Windows 10 2004 版和更新版本， (組建 19041 和更新版本) 或 Windows 11。</p>
-<h3>2.2. Ubuntu</h3>
+<h3 id="22-ubuntu">2.2. Ubuntu</h3>
 <p>OSX-KVM 需求: Ubuntu 20.04 LTS 64-bit 或更新版本.</p>
 <blockquote>
 <p>A modern Linux distribution. E.g. Ubuntu 20.04 LTS 64-bit or later.</p>
 </blockquote>
-<h3>2.3. OSX-KVM</h3>
+<h3 id="23-osx-kvm">2.3. OSX-KVM</h3>
 <ul>
 <li><p>QEMU &gt;= 4.2.0</p>
 </li>
@@ -28,12 +28,12 @@
 <p>根據此網站以 i7-12700 為例以上硬體需求都有支援: https://openbenchmarking.org/s/Intel+Core+i7-12700</p>
 </blockquote>
 <p>以上需求來自: <a href="https://github.com/kholia/OSX-KVM#requirements">OSX-KVM#requirements</a></p>
-<h2>3. Ubuntu</h2>
+<h2 id="3-ubuntu">3. Ubuntu</h2>
 <p><img src="/assets/images/2022-09-23-23-42-01.png" alt="" /></p>
 <blockquote>
 <p>到 Microsoft Store 下載 Ubuntu 這邊是安裝 20.04.1 LTS，現在有更新的版號可以下載。</p>
 </blockquote>
-<h3>3.1. 設定 Windows 功能</h3>
+<h3 id="31-設定-windows-功能">3.1. 設定 Windows 功能</h3>
 <p>(1) <code>win + R</code> 在執行視窗輸入 <code>optionalfeatures</code>
 <img src="/assets/images/2022-10-25-09-59-45.png" alt="" /></p>
 <p>(2) 「開啟或關閉 Windows 功能」</p>
@@ -44,24 +44,24 @@
 <li>Windows Hypervisor 平台 (Windows Hypervisor Platform)</li>
 <li>Windows 子系統 Linux 版 (Windows Subsystem for Linux)</li>
 </ul>
-<h2>4. 安裝要用到的套件</h2>
+<h2 id="4-安裝要用到的套件">4. 安裝要用到的套件</h2>
 <p>主要會使用 WSL2 提供的打開 Linux GUI 的功能來打開 QEMU。<br />
 <a href="https://learn.microsoft.com/zh-tw/windows/wsl/tutorials/gui-apps">在 Windows 子系統 Linux 版上執行 Linux GUI 應用程式</a></p>
-<h3>4.1. 所以要先安裝 WSL2:</h3>
-<h4>4.1.1. 之前沒有安裝過 WSL 的話</h4>
+<h3 id="41-所以要先安裝-wsl2">4.1. 所以要先安裝 WSL2:</h3>
+<h4 id="411-之前沒有安裝過-wsl-的話">4.1.1. 之前沒有安裝過 WSL 的話</h4>
 <p>(1) 以系統管理員身分執行 cmd 或 powershell:</p>
 <pre><code class="language-cmd">wsl --install
 </code></pre>
 <p>(2) 電腦要重開機。</p>
-<h4>4.1.2. 如果現在已經有安裝 WSL 了</h4>
+<h4 id="412-如果現在已經有安裝-wsl-了">4.1.2. 如果現在已經有安裝 WSL 了</h4>
 <p>(1) 以系統管理員身分執行 cmd 或 powershell:</p>
 <pre><code class="language-cmd">wsl --update
 </code></pre>
 <p>(2) 用這指令重開 WSL:</p>
 <pre><code class="language-cmd">wsl --shutdown
 </code></pre>
-<h3>4.2. 用 Ubuntu 打開 Linux GUI:</h3>
-<h4>4.2.1. 打開步驟 3. 下載好的 Ubuntu</h4>
+<h3 id="42-用-ubuntu-打開-linux-gui">4.2. 用 Ubuntu 打開 Linux GUI:</h3>
+<h4 id="421-打開步驟-3-下載好的-ubuntu">4.2.1. 打開步驟 3. 下載好的 Ubuntu</h4>
 <p><img src="/assets/images/2022-10-20-15-16-01.png" alt="" /></p>
 <p><img src="/assets/images/2022-10-20-15-18-37.png" alt="" /></p>
 <blockquote>
@@ -93,8 +93,8 @@
 <blockquote>
 <p>彈出視窗就代表在 windows 上成功運行 nautilus 這個 Linux GUI 了。</p>
 </blockquote>
-<h3>4.3. 在 Ubuntu 安裝 QEMU 前</h3>
-<h4>4.3.1. 設定套嵌化</h4>
+<h3 id="43-在-ubuntu-安裝-qemu-前">4.3. 在 Ubuntu 安裝 QEMU 前</h3>
+<h4 id="431-設定套嵌化">4.3.1. 設定套嵌化</h4>
 <p>WSL2 沒有預設套嵌化，要自己設定 <code>nestedVirtualization=true</code>。</p>
 <p>設定方式:</p>
 <p>(1) 在 Windows 中，在用戶文件夾下新建一個 <code>.wslconfig</code> 檔案 <code>C:\Users\%User%\.wslconfig</code>。（User 是你的 Windows 系统用户名）</p>
@@ -135,8 +135,8 @@ https://openbenchmarking.org/s/Intel+Core+i7-12700</p>
 <p>(2) 設定並儲存完後，用這指令重開 WSL:</p>
 <pre><code class="language-cmd">wsl --shutdown
 </code></pre>
-<h3>4.4. 在 Ubuntu 安裝 QEMU 並安裝 MacOS</h3>
-<h4>4.4.1. 安裝 OSX-KVM 與準備安裝 MacOS</h4>
+<h3 id="44-在-ubuntu-安裝-qemu-並安裝-macos">4.4. 在 Ubuntu 安裝 QEMU 並安裝 MacOS</h3>
+<h4 id="441-安裝-osx-kvm-與準備安裝-macos">4.4.1. 安裝 OSX-KVM 與準備安裝 MacOS</h4>
 <p>使用 OSX-KVM 安装 MacOS VM。</p>
 <ul>
 <li><p>參考網址:
@@ -201,7 +201,7 @@ Choose a product to download (1-5): 4
 <blockquote>
 <p>mac_hdd_ng.img 是文件名，可以任意修改</p>
 </blockquote>
-<h4>4.4.2. 安裝 MacOS</h4>
+<h4 id="442-安裝-macos">4.4.2. 安裝 MacOS</h4>
 <p>(1) 修改腳本</p>
 <p>先修改 <code>OpenCore-Boot.sh</code> 文件，設定 MacOS 的虛擬硬體規格。</p>
 <pre><code class="language-bash">vim ./OpenCore-Boot.sh
@@ -229,7 +229,7 @@ Choose a product to download (1-5): 4
 <li><p><a href="https://youtu.be/dOvt5wKh2S4?t=42">QEMU-KVM安裝macOS Montery虛擬機 (Manjaro/Arch Linux) by Ivon Huang</a></p>
 </li>
 </ul>
-<h3>4.5. 打開 macOS，並安裝 xcode</h3>
+<h3 id="45-打開-macos並安裝-xcode">4.5. 打開 macOS，並安裝 xcode</h3>
 <pre><code class="language-bash">cd OSX-KVM
 ./OpenCore-Boot.sh
 </code></pre>
@@ -237,7 +237,7 @@ Choose a product to download (1-5): 4
 <img src="/assets/images/2022-10-20-18-31-39.png" alt="" /></p>
 <p>接下來會跑一下一堆白字然後出現 apple icon loading 畫面</p>
 <p>最後會看到登入頁面，輸入密碼就會進到系統裡了。</p>
-<h3>4.6. 在 macOS 裡下載 xcode</h3>
+<h3 id="46-在-macos-裡下載-xcode">4.6. 在 macOS 裡下載 xcode</h3>
 <p>用 macOS 裡的 safari 到這個網頁 https://developer.apple.com/download/all/</p>
 <p>登入開發者帳號後就可以下載所需的版本。</p>
 <ul>
@@ -261,8 +261,8 @@ https://developer.apple.com/support/xcode/</p>
 <blockquote>
 <p>我沒有用到 <code>virt-manager</code>，如果最後想用 <code>virt-manager</code> 可參考 <a href="https://github.com/kholia/OSX-KVM#installation">OSX-KVM#installation</a> 或 <a href="https://blog.hal.wang/7afa8fc1/#%E4%BD%BF%E7%94%A8-virt-manager-%E7%AE%A1%E7%90%86">使用 virt-manager 管理</a> 或 <a href="https://youtu.be/BgZHbCDFODk">QEMU/KVM for absolute beginners by Veronica Explains</a></p>
 </blockquote>
-<h2>5. 相關設定</h2>
-<h3>5.1. Angular 在 ng serve 設定 <code>--host 0.0.0.0</code></h3>
+<h2 id="5-相關設定">5. 相關設定</h2>
+<h3 id="51-angular-在-ng-serve-設定---host-0000">5.1. Angular 在 ng serve 設定 <code>--host 0.0.0.0</code></h3>
 <p>在 <code>package.json</code> 設定 <code>--host 0.0.0.0</code> 就可以邊開發邊自動刷新模擬器上的畫面。
 <img src="/assets/images/2022-10-20-21-02-37.png" alt="" /></p>
 <p>0.0.0.0 代表<a href="https://zh.wikipedia.org/zh-tw/%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1">預定閘門(Default Router)</a> (註: <a href="http://www.tsnien.idv.tw/Internet_WebBook/chap5/5-2%20IP%20%E9%80%9A%E8%A8%8A%E5%8D%94%E5%AE%9A.html">TCP/IP 協定與 Internet 網路：第五章 網際層協定 by 粘添壽</a>)</p>
@@ -277,12 +277,12 @@ https://developer.apple.com/support/xcode/</p>
 <blockquote>
 <p>以此圖為例，這是用 hyper-v 建立的虛擬交換器，每次重啟電腦都會變，所以要在輸入網址時要先在本機 cmd <code>ipconfig /all</code> 查看目前 IP。 在 VM 裡的要測試的 angular 網站網址打上 <code>192.168.64.1:4200</code> 就可以連線了。</p>
 </blockquote>
-<h3>5.1.1 沒辦法在 qemu 成功瀏覽</h3>
+<h3 id="511-沒辦法在-qemu-成功瀏覽">5.1.1 沒辦法在 qemu 成功瀏覽</h3>
 <p>在本機 windows <code>ng serve --host 0.0.0.0</code> 後打開 qemu。</p>
 <p>如果在 qemu 裡 <code>ping &lt;你的網卡ip&gt;</code> 可以成功，</p>
 <p>但在 qemu <code>http://&lt;你的網卡ip&gt;:4200</code> 沒辦法成功瀏覽的話，</p>
 <p>要到本機 windows 設定開啟 tcp 4200 port 的防火牆輸入/輸出規則。</p>
-<h3>5.2. 畫面大小</h3>
+<h3 id="52-畫面大小">5.2. 畫面大小</h3>
 <p>選 About This Mac 後選擇 Display
 <img src="/assets/images/2022-10-20-22-33-47.png" alt="" /></p>
 <p>選擇 Displays Preferences
@@ -293,7 +293,7 @@ https://developer.apple.com/support/xcode/</p>
 <p>因為我的螢幕是 27 吋 FHD，此視窗預設 1920 x 1080 會超出我的螢幕範圍(螢幕對這視窗來說太小了)，1600 x 900 大小就很合適。</p>
 <p>另外 QEMU 可以從 View &gt; 打勾 Zoom to fit，這樣就可以調整自己想要的視窗大小，內容會等比縮放，所以你的螢幕解析度比較高的話，可以設定較大尺寸，再用這個來調整視窗大小，就不用為了讓視窗變小而讓解析度變低(設定小尺寸)。另外，解析度跟 RAM 有關，要確保自己的 RAM 有足夠空間再開高，不然會容易閃退。
 <img src="/assets/images/2022-10-20-22-40-49.png" alt="" /></p>
-<h2>6. 關於 Hyper-V 和 WSL</h2>
+<h2 id="6-關於-hyper-v-和-wsl">6. 關於 Hyper-V 和 WSL</h2>
 <p>Hyper-V 是 Microsoft 的本機虛擬機器管理程式，它可以在執行 x86-64 位元的 Windows 上建立虛擬機器。(註: <a href="https://zh.wikipedia.org/zh-tw/Hyper-V">Hyper-V - wiki</a>)</p>
 <p>Hyper-V 虛擬機器不支援 Hyper-V 以外的虛擬化應用程式。所以在安裝 ubuntu 的 Hyper-V 安裝 QEMU 會閃退。
 (註: <a href="https://learn.microsoft.com/zh-tw/virtualization/hyper-v-on-windows/user-guide/nested-virtualization#3rd-party-virtualization-apps">第三方虛擬化 App - microsoft</a>)</p>
@@ -303,7 +303,7 @@ https://developer.apple.com/support/xcode/</p>
 付費方式有三種($99.99、$119.99/yr、$149.99/yr)。</p>
 <p>或是雲端的 VM 譬如 <a href="https://aws.amazon.com/tw/ec2/instance-types/mac/">Amazon EC2 Mac 執行個體</a> 也是要收費。</p>
 <p>OSX-KVM 作者對合法性有寫了一段說明 <a href="https://github.com/kholia/OSX-KVM#is-this-legal">Is This Legal?</a>。OSX-KVM 是利用 OpenCore 下載 macOS 的 <a href="https://dortania.github.io/OpenCore-Install-Guide/why-oc.html#common-myths">Legality of Hackintoshing</a>。</p>
-<h2>7. 這篇筆記的起源與感想</h2>
+<h2 id="7-這篇筆記的起源與感想">7. 這篇筆記的起源與感想</h2>
 <p>為了測試 Apple 裝置上的 safari 和 IOS 上的 safari 但手邊沒有相關裝置，</p>
 <p>用了保哥提過的 <a href="https://www.browserstack.com/?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=Search-Brand-Tier2-APAC&amp;utm_adgroup=BrowserStack-Alpha&amp;utm_keyword=browserstack&amp;utm_matchtype=e&amp;gclid=Cj0KCQjw48OaBhDWARIsAMd966DtkC0HouaetqSwwkXJ_BVh1-_-tZO4AZUvrqvR8_jZpaEBuK3yhAwaAm-IEALw_wcB">BrowserStack</a> 但因為 API 有網域限制所以沒辦法使用這個做測試。</p>
 <p>所以一開始使用過 VirtualBox、後來有時間才換成使用 OSX-KVM + WSL2。</p>

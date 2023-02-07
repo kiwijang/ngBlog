@@ -1,4 +1,4 @@
-<div class="NoteDescWrap"><h1>0907 [C#] 從 List 到 IEnumerable 和 IQueryable</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.C#</span></div><span>更新時間: 2022/9/8 上午 12:19</span> | <span>新增時間: 2022/9/8 上午 12:19</span></div><h2>IEnumerable vs List - 如何使用? 他們是如何運作的?</h2>
+<div class="NoteDescWrap"><h1>0907 [C#] 從 List 到 IEnumerable 和 IQueryable</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.C#</span></div><span>更新時間: 2022/9/8 上午 12:19</span> | <span>新增時間: 2022/9/8 上午 12:19</span></div><h2 id="ienumerable-vs-list---如何使用-他們是如何運作的">IEnumerable vs List - 如何使用? 他們是如何運作的?</h2>
 <p>以下取自: https://stackoverflow.com/questions/3628425/ienumerable-vs-list-what-to-use-how-do-they-work/3628465</p>
 <ul>
 <li><p>一個類別實作 <code>IEnumerable</code> 的話，可以讓你使用 <code>foreach</code> 語法。</p>
@@ -27,7 +27,7 @@
 </blockquote>
 </li>
 </ul>
-<h2>LINQ 不會產生 Sql 去查詢(query)資料庫，直到你列舉(enumerate)他</h2>
+<h2 id="linq-不會產生-sql-去查詢query資料庫直到你列舉enumerate他">LINQ 不會產生 Sql 去查詢(query)資料庫，直到你列舉(enumerate)他</h2>
 <pre><code>&gt; LINQ doesn't generate the SQL to query the database until you enumerate it
 </code></pre>
 <ul>
@@ -36,12 +36,12 @@
 <li><p>e.g 當你用 <code>foreach</code> 列舉，或者使用 <code>ToList()</code> 才會執行查詢資料庫的動作。</p>
 </li>
 </ul>
-<h1>小結</h1>
+<h1 id="小結">小結</h1>
 <p>因為 linq 在你列舉他之前，不會去馬上去資料庫抓資料。
 列舉就是指 foreach 和 toList()
 他說 IEnumerable 可以拿來放 LINQ expressions。
 最後要拿資料再 toList() 就好</p>
-<h2>IEnumberable 的大缺點</h2>
+<h2 id="ienumberable-的大缺點">IEnumberable 的大缺點</h2>
 <ul>
 <li><p><a href="https://www.cnblogs.com/powertoolsteam/p/4936818.html">最全数据结构详述: List VS IEnumerable VS IQueryable VS ICollection VS IDictionary</a></p>
 <blockquote>
@@ -49,7 +49,7 @@
 </blockquote>
 </li>
 </ul>
-<h2><code>IEnumerable</code> vs <code>IQueryable</code></h2>
+<h2 id="ienumerable-vs-iqueryable"><code>IEnumerable</code> vs <code>IQueryable</code></h2>
 <ul>
 <li><p><a href="https://stackoverflow.com/questions/2876616/returning-ienumerablet-vs-iqueryablet">Returning <code>IEnumerable&lt;T&gt;</code> vs. <code>IQueryable&lt;T&gt;</code></a></p>
 <blockquote>
@@ -60,7 +60,7 @@
 </blockquote>
 </li>
 </ul>
-<h2>小結</h2>
+<h2 id="小結-1">小結</h2>
 <ul>
 <li><p>先備觀念:
 linq 在列舉後才會到資料庫撈資料。</p>
@@ -84,7 +84,7 @@ linq 在列舉後才會到資料庫撈資料。</p>
 </ol>
 </li>
 </ul>
-<h3>可以看這兩篇範例，會更清楚</h3>
+<h3 id="可以看這兩篇範例會更清楚">可以看這兩篇範例，會更清楚</h3>
 <ul>
 <li><p><a href="https://blog.darkthread.net/blog/iqueryable-experiment/">關於<code>IQueryable&lt;T&gt;</code>特性的小實驗</a></p>
 </li>
@@ -94,7 +94,7 @@ linq 在列舉後才會到資料庫撈資料。</p>
 </blockquote>
 </li>
 </ul>
-<h2>參考資料</h2>
+<h2 id="參考資料">參考資料</h2>
 <ul>
 <li><p><a href="https://blog.darkthread.net/blog/iqueryable-experiment/">關於 <code>IQueryable&lt;T&gt;</code> 特性的小實驗</a></p>
 </li>

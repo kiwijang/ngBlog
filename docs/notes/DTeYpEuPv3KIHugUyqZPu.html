@@ -1,5 +1,5 @@
-<div class="NoteDescWrap"><h1>1226 使用 Dendron 紀錄</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Dendron</span></div><span>更新時間: 2022/3/20 上午 01:40</span> | <span>新增時間: 2022/3/20 上午 01:40</span></div><h2>使用 Dendron 紀錄</h2>
-<h3>Dendron 簡介</h3>
+<div class="NoteDescWrap"><h1>1226 使用 Dendron 紀錄</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Dendron</span></div><span>更新時間: 2022/3/20 上午 01:40</span> | <span>新增時間: 2022/3/20 上午 01:40</span></div><h2 id="使用-dendron-紀錄">使用 Dendron 紀錄</h2>
+<h3 id="dendron-簡介">Dendron 簡介</h3>
 <p>筆記都可以方便被記錄，但取出筆記又是一大學問。</p>
 <p>Dendron 主打方便取出筆記 (get notes back out)。
 作者 <a href="https://www.dendron.so/about">Kevin</a> 說道 Dendron 有以下三特點:</p>
@@ -24,9 +24,9 @@
 <p>下載 <code>Dendron CLI</code> 後可以將筆記轉成資料、並套上 <code>Next.js</code> 的部落格樣板，<code>git push</code> 到 github 上做些設定就可以看到部落格了。🎉</p>
 <p>所以 <code>Next.js</code> 的使用者有福了!可以用熟悉的網頁框架客製化自己的部落格。</p>
 <p>謝謝 Dendron 作者們讓菜雞如我可以接觸 <code>Next.js</code>。😆</p>
-<h3>撰寫文章</h3>
+<h3 id="撰寫文章">撰寫文章</h3>
 <p>選擇在欲要新增文章的 parent .md 檔上，<code>Dendron: Lookup (Ctrl+L / Cmd+L) </code>，輸入檔名就可以開始寫新筆記了。</p>
-<h3>建置並預覽筆記</h3>
+<h3 id="建置並預覽筆記">建置並預覽筆記</h3>
 <ul>
 <li><p><strong>Preview</strong></p>
 <p><code>npx dendron publish dev</code></p>
@@ -40,11 +40,11 @@
 <p>參考資料:
 https://wiki.dendron.so/notes/yg3EL1x9fEe4NMqxUC3jP/</p>
 <hr />
-<h3>.next 專案 fork 來源</h3>
+<h3 id="next-專案-fork-來源">.next 專案 fork 來源</h3>
 <p>https://github.com/dendronhq/nextjs-template</p>
 <hr />
-<h2>問題紀錄</h2>
-<h3>github page build 失敗</h3>
+<h2 id="問題紀錄">問題紀錄</h2>
+<h3 id="github-page-build-失敗">github page build 失敗</h3>
 <pre><code class="language-bash">  /usr/bin/git submodule sync
   Error: fatal: No url found for submodule path '.next' in .gitmodules
 </code></pre>
@@ -64,17 +64,17 @@ Working tree files, whether modified or not, will be left alone.
 <p>取消追蹤 .next 資料夾版控後，github page build 就可以順利完成 github page 的 build 了。 😄</p>
 </li>
 </ul>
-<h3>npx dendron publish dev ctrl+c 以後 port 沒有清掉</h3>
+<h3 id="npx-dendron-publish-dev-ctrlc-以後-port-沒有清掉">npx dendron publish dev ctrl+c 以後 port 沒有清掉</h3>
 <p><code>netstat -a</code> 查看使用中連線。</p>
 <p><code>npx kill-port 3000</code> 清除 3000 port。</p>
 <p>參考網址: https://stackoverflow.com/questions/39632667/how-do-i-kill-the-process-currently-using-a-port-on-localhost-in-windows</p>
-<h3>加入 Disqus 留言板</h3>
+<h3 id="加入-disqus-留言板">加入 Disqus 留言板</h3>
 <p>參考資料:</p>
 <ul>
 <li><a href="https://imranhsayed.medium.com/disqus-is-a-networked-community-platform-used-by-hundreds-of-thousands-of-sites-all-over-the-web-39b88bafaca5">Integrating Disqus in your Next.js React Application by Imran Sayed</a></li>
 <li><a href="https://ithelp.ithome.com.tw/articles/10242269">如何安裝 Disqus 留言板</a></li>
 </ul>
-<h3>為標題編號</h3>
+<h3 id="為標題編號">為標題編號</h3>
 <p>下載 vscode 套件 <a href="https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one">markdown all in one</a></p>
 <p><code>shift + ctrl + P</code> 輸入 number 然後選這個，就會自動編號了。</p>
 <p><img src="/assets/images/2022-02-08-18-31-50.png" alt="" /></p>

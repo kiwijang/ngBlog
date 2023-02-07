@@ -1,6 +1,6 @@
-<div class="NoteDescWrap"><h1>0914 [Ch2Ch3]IO、OS 架構、VM</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.OS</span></div><span>更新時間: 2022/12/10 下午 08:11</span> | <span>新增時間: 2022/12/10 下午 08:11</span></div><h2>IO 運作方式: Interrupt 介紹、HW Resource protection</h2>
-<h3>I/O 運作方式</h3>
-<h4>polling I/O (programmed I/O)</h4>
+<div class="NoteDescWrap"><h1>0914 [Ch2Ch3]IO、OS 架構、VM</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.OS</span></div><span>更新時間: 2022/12/10 下午 08:11</span> | <span>新增時間: 2022/12/10 下午 08:11</span></div><h2 id="io-運作方式-interrupt-介紹hw-resource-protection">IO 運作方式: Interrupt 介紹、HW Resource protection</h2>
+<h3 id="io-運作方式">I/O 運作方式</h3>
+<h4 id="polling-io-programmed-io">polling I/O (programmed I/O)</h4>
 <p>Def: 又叫 Busy waiting I/O 或 programmed I/O</p>
 <p>步驟如下:</p>
 <ol>
@@ -31,7 +31,7 @@ driver -( request I/O subsystem )-&gt; OS</li>
     D[device driver] --&gt;|5 I/O 命令| F[6 I/O decvice 硬體 - 好了不會通知]
     A ----&gt;|8 polling - CPU 要一直檢查好了沒| F
 </code></pre>
-<h4>Interrupted I/O</h4>
+<h4 id="interrupted-io">Interrupted I/O</h4>
 <ol start="8">
 <li>當 I/O 運作完成，I/O-device controller 會發出一個 &quot;I/O-completed&quot; interrupt 通知 CPU(OS)</li>
 <li>OS 收到中斷通知後(可能)會先暫停目前執行中的 process(eg. PB execution -&gt; ready state)</li>
@@ -59,8 +59,8 @@ driver -( request I/O subsystem )-&gt; OS</li>
 <li>Interrupt 之處理仍需耗費 cpu time (eg 查表.執行 ISR 保存中斷前 process 之 state etc)</li>
 <li></li>
 </ul>
-<h4>DMA</h4>
-<h4>Interrupt 之處理</h4>
+<h4 id="dma">DMA</h4>
+<h4 id="interrupt-之處理">Interrupt 之處理</h4>
 <p>Def: DMA controller 負責 I/O-Device 與 memory 之間的 Data transfer 工作。此 transfer 過程不須 cpu 參與。</p>
 <p>所以 CPU 有更多時間用於 process exec 上。
 另外 DMA 適合用在 block-transfer oriented I/O Device。例如 Disk。
@@ -77,12 +77,12 @@ note: 可以降低 I/O completed 中斷頻率。不適合 Byte transfer oriented
 alu ← signal 通知</p>
 <p>當 conflict 時，通常給 DMA 高優先權。</p>
 <p>理由: DMA 對 memory、bus 上使用頻率低於 cpu 很多，優先配給 DMA (給需求量少的人)會有比較小的平均 waiting time 及較高之產出(throughput)。</p>
-<h4>種類</h4>
-<h3>Interrupt 介紹</h3>
-<h4>HW Resource Protection</h4>
-<h4>基礎</h4>
-<h5>Daul mode 運作</h5>
-<h5>privileged instructions</h5>
-<h4>I/O</h4>
-<h4>memory</h4>
-<h4>cpu</h4>
+<h4 id="種類">種類</h4>
+<h3 id="interrupt-介紹">Interrupt 介紹</h3>
+<h4 id="hw-resource-protection">HW Resource Protection</h4>
+<h4 id="基礎">基礎</h4>
+<h5 id="daul-mode-運作">Daul mode 運作</h5>
+<h5 id="privileged-instructions">privileged instructions</h5>
+<h4 id="io">I/O</h4>
+<h4 id="memory">memory</h4>
+<h4 id="cpu">cpu</h4>

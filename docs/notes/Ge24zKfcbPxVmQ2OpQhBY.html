@@ -1,4 +1,4 @@
-<div class="NoteDescWrap"><h1>0208 Live Server 開啟 build 檔案</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Angular、</span><span class="tag">PROG.Server</span></div><span>更新時間: 2022/2/10 上午 09:32</span> | <span>新增時間: 2022/2/10 上午 09:32</span></div><h2>1. 直接資料夾開啟 index.html，會遇到一些問題:</h2>
+<div class="NoteDescWrap"><h1>0208 Live Server 開啟 build 檔案</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Angular、</span><span class="tag">PROG.Server</span></div><span>更新時間: 2022/2/10 上午 09:32</span> | <span>新增時間: 2022/2/10 上午 09:32</span></div><h2 id="1-直接資料夾開啟-indexhtml會遇到一些問題">1. 直接資料夾開啟 index.html，會遇到一些問題:</h2>
 <p>在 angular 的 index.html 預設是 <code>&lt;base href=&quot;/&quot;&gt;</code></p>
 <p>所以會以檔案資料夾目錄的位置打開(網址列會長這樣: <code>file:///C:/Users/xxx.../dist/apps/client/index.html</code>)</p>
 <p>如果想用 <code>&lt;base href=&quot;./&quot;&gt;</code> 解決問題，若有設定路由會發現網址除了 server 根網址以外還多了路由，然後發生 404 錯誤...</p>
@@ -9,17 +9,17 @@
 <blockquote>
 <p>Origin: null 是 null 的。😭</p>
 </blockquote>
-<h2>2. 下載 Live Server</h2>
+<h2 id="2-下載-live-server">2. 下載 Live Server</h2>
 <p><img src="/assets/images/2022-02-08-13-49-40.png" alt="" /></p>
 <p>所以這時就可以用 vscode 的 <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">Live Server 擴充套件</a> 來解決 Origin 的問題。</p>
 <p>接著發現可以成功載入首頁，但是其他路由會 404...</p>
-<h2>3. 使用 Live Server 但路由出問題:</h2>
+<h2 id="3-使用-live-server-但路由出問題">3. 使用 Live Server 但路由出問題:</h2>
 <p>原因是瀏覽器把路由當成 http request 了。😭</p>
 <p><img src="/assets/images/2022-02-08-18-04-09.png" alt="" /></p>
 <p>於是為了解決這個問題，可以設定 HashLocationStrategy。</p>
 <pre><code class="language-typescript">providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},
 </code></pre>
-<h2>4. 關於 Angular HashLocationStrategy</h2>
+<h2 id="4-關於-angular-hashlocationstrategy">4. 關於 Angular HashLocationStrategy</h2>
 <ul>
 <li>Angular 官網
 <a href="https://angular.tw/api/common/HashLocationStrategy">HashLocationStrategy</a></li>
@@ -37,5 +37,5 @@
 </blockquote>
 <p>所以看起來 fragments 可以解決網址被送到 server 的問題！🎉</p>
 <p>感覺設定成 HashLocationStrategy 只有好處沒有壞處的感覺(除了不常看到有網址會長這樣以外)。</p>
-<h2>5. 小結:設定 HashLocationStrategy + live server</h2>
+<h2 id="5-小結設定-hashlocationstrategy--live-server">5. 小結:設定 HashLocationStrategy + live server</h2>
 <p>以後要開啟 build 後的檔案，可以設定 HashLocationStrategy 然後再用 live server 開啟就 Ok 了。🎉</p>

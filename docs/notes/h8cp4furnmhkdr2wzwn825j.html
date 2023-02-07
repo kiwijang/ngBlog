@@ -1,34 +1,34 @@
-<div class="NoteDescWrap"><h1>1210 [Flutter] 使用 VS Code 在 Windows 上開發 Android App</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">Flutter、</span><span class="tag">Android</span></div><span>更新時間: 2022/12/10 下午 11:10</span> | <span>新增時間: 2022/12/10 下午 11:10</span></div><h2>Flutter</h2>
+<div class="NoteDescWrap"><h1>1210 [Flutter] 使用 VS Code 在 Windows 上開發 Android App</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">Flutter、</span><span class="tag">Android</span></div><span>更新時間: 2022/12/10 下午 11:10</span> | <span>新增時間: 2022/12/10 下午 11:10</span></div><h2 id="flutter">Flutter</h2>
 <p><a href="https://zh.wikipedia.org/zh-tw/Flutter">Flutter - wiki</a></p>
-<h3>Dart</h3>
+<h3 id="dart">Dart</h3>
 <blockquote>
 <p>Flutter是使用Dart語言編寫，並利用該語言的許多進階功能。
 在Windows、macOS和Linux上，Flutter在Dart虛擬機器中執行，該虛擬機器具有即時編譯執行引擎。
 在編寫和除錯應用程式時，Flutter使用即時編譯功能進行「熱重載」(Hot Reload)，可以將對原始檔的修改注入正在執行的應用程式中。</p>
 </blockquote>
-<h3>Flutter 引擎</h3>
+<h3 id="flutter-引擎">Flutter 引擎</h3>
 <blockquote>
 <p>Flutter的引擎主要使用C++開發，透過Google的Skia圖形函式庫提供底層彩現支援，亦提供平台相關的SDK，例如Android和iOS。
 Flutter引擎是用於代管Flutter應用程式的可移植的執行環境。它實現了Flutter的核心程式庫，包括動畫和圖形、檔案和網路I/O、可存取性支援、外掛程式架構以及Dart執行環境和編譯工具鏈。
 大多數開發人員將透過Flutter框架與Flutter進行互動，該框架提供了一個現代、回應式的框架，以及一組豐富的平台、版面配置和基礎元件。</p>
 </blockquote>
-<h3>Flutter’s Compilation Patterns 編譯方式</h3>
+<h3 id="flutters-compilation-patterns-編譯方式">Flutter’s Compilation Patterns 編譯方式</h3>
 <p><a href="https://proandroiddev.com/flutters-compilation-patterns-24e139d14177">Flutter’s Compilation Patterns by stephenwzl</a></p>
 <blockquote>
 <p>開發時用 Kernel Snapshot，發布時則根據不同平台用不一樣的編譯方式。</p>
 </blockquote>
-<h3>安裝 Flutter</h3>
+<h3 id="安裝-flutter">安裝 Flutter</h3>
 <p><a href="https://docs.flutter.dev/get-started/install/windows">Windows install - Flutter 官網</a></p>
-<h4>下載 flutter SDK</h4>
+<h4 id="下載-flutter-sdk">下載 flutter SDK</h4>
 <blockquote>
 <p>Warning: Do not install Flutter to a path that contains special characters or spaces.
 Warning: Do not install Flutter in a directory like C:\Program Files\ that requires elevated privileges.</p>
 </blockquote>
-<h4>將 flutter 加入使用者環境變數</h4>
+<h4 id="將-flutter-加入使用者環境變數">將 flutter 加入使用者環境變數</h4>
 <p><img src="/assets/images/2022-12-10-21-22-03.png" alt="" /></p>
-<h3>設定 VS code(安裝 Flutter extention)</h3>
+<h3 id="設定-vs-code安裝-flutter-extention">設定 VS code(安裝 Flutter extention)</h3>
 <p><a href="https://docs.flutter.dev/get-started/editor">Set up an editor - Flutter 官網</a></p>
-<h3>設定 Android</h3>
+<h3 id="設定-android">設定 Android</h3>
 <p><a href="https://docs.flutter.dev/get-started/install/windows#android-setup">Android setup</a></p>
 <p>Android App 是以 Java 撰寫而成，故要有 Java 開發環境與安裝 Android SDK。</p>
 <p>無論你用 Android Studio 還 VS Code 開發都要安裝:</p>
@@ -48,10 +48,10 @@ Warning: Do not install Flutter in a directory like C:\Program Files\ that requi
 </blockquote>
 </li>
 <li><p>如果想使用 cmd 管理 Android SDK，安裝 sdkmanager 並設定環境變數(可略過這步直接用 Android Studio 管理 Android SDK 就好)</p>
-<h4>用 cmd 管理 Android SDK</h4>
-<h5>關於 sdkmanager</h5>
+<h4 id="用-cmd-管理-android-sdk">用 cmd 管理 Android SDK</h4>
+<h5 id="關於-sdkmanager">關於 sdkmanager</h5>
 <p><a href="https://developer.android.com/studio/command-line/sdkmanager">sdkmanager</a></p>
-<h5>sdkmanager 下載頁面與安裝和設定 cmd 環境變數</h5>
+<h5 id="sdkmanager-下載頁面與安裝和設定-cmd-環境變數">sdkmanager 下載頁面與安裝和設定 cmd 環境變數</h5>
 <p><img src="/assets/images/2022-12-10-21-27-03.png" alt="" />
 <img src="/assets/images/2022-12-10-21-27-23.png" alt="" /></p>
 <p>根據 <a href="https://developer.android.com/studio/command-line/sdkmanager">sdkmanager</a> 裡的安裝步驟。</p>
@@ -62,22 +62,22 @@ Warning: Do not install Flutter in a directory like C:\Program Files\ that requi
 <blockquote>
 <p>因為以前有安裝過 Android Studio 所以有安裝 Android SDK 了，我是放在這: <code>C:\Users\使用者名稱\AppData\Local\Android\Sdk\cmdline-tools\latest</code></p>
 </blockquote>
-<h4>將 sdkmanager cmdline-tools 加入使用者環境變數</h4>
+<h4 id="將-sdkmanager-cmdline-tools-加入使用者環境變數">將 sdkmanager cmdline-tools 加入使用者環境變數</h4>
 <p><img src="/assets/images/2022-12-10-22-09-18.png" alt="" /></p>
 </li>
 </ol>
-<h3>檢查環境是否可跑 flutter</h3>
+<h3 id="檢查環境是否可跑-flutter">檢查環境是否可跑 flutter</h3>
 <p><code>flutter doctor</code> 可以幫你檢查你的環境有那些沒安裝，沒安裝的照指示安裝就好了。</p>
 <p><img src="/assets/images/2022-12-10-21-42-41.png" alt="" /></p>
 <blockquote>
 <p>譬如這個就是 Visual Studio 沒有安裝 C++ 的東西。(如果沒要用 Visual Studio 開發 Flutter 可以忽略xD)</p>
 </blockquote>
-<h3>新增一個 Flutter App</h3>
+<h3 id="新增一個-flutter-app">新增一個 Flutter App</h3>
 <p><a href="https://docs.flutter.dev/get-started/test-drive">Test drive - Flutter 官網</a></p>
 <blockquote>
 <p>注意檔案的所有路徑都不可以有中文，不然 <code>flutter run</code> 會失敗...</p>
 </blockquote>
-<h3>使用 ADV Manager 新增 Android 模擬器</h3>
+<h3 id="使用-adv-manager-新增-android-模擬器">使用 ADV Manager 新增 Android 模擬器</h3>
 <p>直接用 Android Studio 新增最方便xD</p>
 <p><img src="/assets/images/2022-12-10-22-25-34.png" alt="" /></p>
 <blockquote>
@@ -108,7 +108,7 @@ Warning: Do not install Flutter in a directory like C:\Program Files\ that requi
 <blockquote>
 <p>Widgets Inspector 超酷的...<a href="https://docs.flutter.dev/development/tools/devtools/inspector">inspector - Flutter 官網</a></p>
 </blockquote>
-<h3>Flutter Devtools in VS Code</h3>
+<h3 id="flutter-devtools-in-vs-code">Flutter Devtools in VS Code</h3>
 <p><a href="https://docs.flutter.dev/development/tools/devtools/vscode">devtools(vscode) - Flutter 官網</a></p>
 <p><img src="/assets/images/2022-12-10-22-46-02.png" alt="" /></p>
 <blockquote>
@@ -118,5 +118,5 @@ Warning: Do not install Flutter in a directory like C:\Program Files\ that requi
 <blockquote>
 <p>在瀏覽器中打開 devtool</p>
 </blockquote>
-<h2>小結</h2>
+<h2 id="小結">小結</h2>
 <p>Flutter 很好用的感覺!! 之後就是來寫寫看應用程式了!!</p>

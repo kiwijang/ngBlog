@@ -1,10 +1,10 @@
-<div class="NoteDescWrap"><h1>1227 從 Nx 入門 monorepo</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Nx</span></div><span>更新時間: 2022/9/8 下午 02:55</span> | <span>新增時間: 2022/9/8 下午 02:55</span></div><h2>前言</h2>
+<div class="NoteDescWrap"><h1>1227 從 Nx 入門 monorepo</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"><span class="tag">PROG.Nx</span></div><span>更新時間: 2022/9/8 下午 02:55</span> | <span>新增時間: 2022/9/8 下午 02:55</span></div><h2 id="前言">前言</h2>
 <blockquote>
 <p>注意: 此篇文章撰寫時間 Nx 版本為 12，跟目前版本可能有些不一。 (Nx 版號會跟 Angular 版號一樣)</p>
 </blockquote>
 <p>使用 Nx Console 實現一個 Monorepo 架構的專案。</p>
 <p>導讀影片: <a href="https://www.youtube.com/watch?v=9iU_IE6vnJ8">Monorepos - How the Pros Scale Huge Software Projects // Turborepo vs Nx</a></p>
-<h2>1. 簡介 Monorepo 架構</h2>
+<h2 id="1-簡介-monorepo-架構">1. 簡介 Monorepo 架構</h2>
 <p>Monorepo (全名 Monolithic Repository)，符合以下三個條件:</p>
 <ol>
 <li><strong>一個 repo</strong> One Repository</li>
@@ -21,8 +21,8 @@
 <p>雖然也可以使用 rollupjs 來達到不同前端框架共同開發一個 app 的效果。</p>
 <p>但 Nx 就像 monorepo 全家桶: 提供一個 Nx workspace 讓你的 monorepo 開發更容易。</p>
 <p>接下來，在看 Nx 怎麼使用之前，先來一些先備知識。</p>
-<h2>2. 簡介 Nx 工具與專有名詞解釋</h2>
-<h3>2-1. 什麼是 Nx ?</h3>
+<h2 id="2-簡介-nx-工具與專有名詞解釋">2. 簡介 Nx 工具與專有名詞解釋</h2>
+<h3 id="2-1-什麼是-nx-">2-1. 什麼是 Nx ?</h3>
 <p>官網: https://nx.dev/</p>
 <p><img src="/assets/images/2021-12-27-23-55-50.png" alt="" /></p>
 <blockquote>
@@ -40,7 +40,7 @@
 <li>還有更多。(and more.)</li>
 </ul>
 <p><strong>簡單來說就是: 可以用 Nx 提供的架構去整合程式碼。</strong></p>
-<h3>2-2. Nx 的製作團隊</h3>
+<h3 id="2-2-nx-的製作團隊">2-2. Nx 的製作團隊</h3>
 <p>narwhal 簡寫 Nrwl，是獨角鯨的英文。</p>
 <p><img src="/assets/images/2021-12-27-23-57-12.png" alt="" /></p>
 <p>顧問、工程、訓練。
@@ -51,14 +51,14 @@ Consulting. Engineering. Training.</p>
 <p>Nrwl was founded in December 2016 by Angular team members and former Googlers, Jeff Cross and Victor Savkin, and today has around 18 team members in the US, Canada and UK.
 Nrwl is also the creator of open-source dev tools: Nx for monorepo development, and Angular Console.</p>
 <p><strong>簡單來說 Nrwl 就是一間科技公司 (Narwhal Technologies Inc.)</strong></p>
-<h3>2-3. Angular monorepo patterns</h3>
+<h3 id="2-3-angular-monorepo-patterns">2-3. Angular monorepo patterns</h3>
 <p>這本書說明了 nx 是如何實踐 monerepo 概念。</p>
 <p><img src="/assets/images/2021-12-27-23-59-52.png" alt="" /></p>
 <ul>
 <li>https://connect.nrwl.io/app/books</li>
 <li>https://nrwl.io/products</li>
 </ul>
-<h3>2-4. Nx 與 Angular 淵源不淺</h3>
+<h3 id="2-4-nx-與-angular-淵源不淺">2-4. Nx 與 Angular 淵源不淺</h3>
 <p><img src="/assets/images/2021-12-28-00-06-48.png" alt="" /></p>
 <blockquote>
 <p>截圖自 <a href="https://www.youtube.com/watch?v=9iU_IE6vnJ8">Monorepos - How the Pros Scale Huge Software Projects // Turborepo vs Nx</a></p>
@@ -66,7 +66,7 @@ Nrwl is also the creator of open-source dev tools: Nx for monorepo development, 
 <p>上面這兩位 Nx 開發的主導者是 Google 的前員工，且對 Angular 都有相當深入的理解。
 但 Nx 官網上有不少 react 的開發教學，如果有公司想要從 react 轉到 angular(或是 angular 轉 react 為主)，
 感覺透過 Nx 的幫助可以慢慢地移花接木(不然 Nx 也至少可以讓這兩框架和平共處)。😆</p>
-<h3>2-5. Angular 詞彙表</h3>
+<h3 id="2-5-angular-詞彙表">2-5. Angular 詞彙表</h3>
 <p>基本上只要知道 Angular 的詞彙就看得懂 Nx 在幹麻了，以下詞彙是在 Nx 也會看到的(取自 Angular 官網):</p>
 <ul>
 <li><p><a href="https://angular.tw/guide/glossary#workspace">Workspace</a> (工作區)</p>
@@ -89,7 +89,7 @@ Nrwl is also the creator of open-source dev tools: Nx for monorepo development, 
 <p><img src="/assets/images/2021-12-28-00-23-52.png" alt="" /></p>
 </li>
 </ul>
-<h3>2-6. Nx 名詞解釋</h3>
+<h3 id="2-6-nx-名詞解釋">2-6. Nx 名詞解釋</h3>
 <p>Nx 的 <code>[plugin]:[generator-name]</code> 就是 Angular 的 <code>[collections]:[schematic]</code></p>
 <p>以下紀錄這個在 Nx 的說明與使用方式:</p>
 <ul>
@@ -101,7 +101,7 @@ Nrwl is also the creator of open-source dev tools: Nx for monorepo development, 
 <p><img src="/assets/images/2021-12-28-21-51-09.png" alt="" /></p>
 </li>
 </ul>
-<h3>2-7. Nx 的 Generators 的使用方式</h3>
+<h3 id="2-7-nx-的-generators-的使用方式">2-7. Nx 的 Generators 的使用方式</h3>
 <p><strong>Nx 的 <code>[plugin]:[generator-name]</code> 就是 Angular 的 <code>[collections]:[schematic]</code>。</strong></p>
 <p>所以有用 angular 寫過 schematic 的人有福了，可以更快上手 Nx 的 generator。🎉</p>
 <p>以下是關於如何調用 gnerator 的內容(截自 Nx 官網):</p>
@@ -116,13 +116,13 @@ nx generate @nrwl/angular:component mycmp --project=myapp
 It is important to have a clean git working directory before invoking a generator so that you can easily revert changes and re-invoke the generator with different inputs.</p>
 </li>
 </ul>
-<h3>2-8. 小補充: 關於 collection 為何都是「＠xxx/ooo」這樣命名?</h3>
+<h3 id="2-8-小補充-關於-collection-為何都是xxxooo這樣命名">2-8. 小補充: 關於 collection 為何都是「＠xxx/ooo」這樣命名?</h3>
 <p>這是 npm 的命名規則，詳情可以參考 npm 官網影片: <a href="https://www.youtube.com/watch?v=O6JoXGnHK_Y">Working with npm private modules</a></p>
 <blockquote>
 <p>＠後的字稱為 <code>@scope</code>，通常是 npm 的帳號名字(尤其要 publish 到 npm 上的話，就是 <code>@username</code> 的意思。)</p>
 </blockquote>
 <p><img src="/assets/images/2021-12-28-21-53-15.png" alt="" /></p>
-<h2>3. 感受一下 Nx 的 monorepo 專案</h2>
+<h2 id="3-感受一下-nx-的-monorepo-專案">3. 感受一下 Nx 的 monorepo 專案</h2>
 <ul>
 <li><p>Angular workspace 的 libs 通常都會有一個自己的 <code>package.json</code></p>
 <p><img src="/assets/images/2021-12-28-00-24-21.png" alt="" /></p>
@@ -131,7 +131,7 @@ It is important to have a clean git working directory before invoking a generato
 <p><img src="/assets/images/2021-12-28-00-28-00.png" alt="" /></p>
 </li>
 </ul>
-<h3>3-1. 產生一個 Nx 的 workspace</h3>
+<h3 id="3-1-產生一個-nx-的-workspace">3-1. 產生一個 Nx 的 workspace</h3>
 <p>可以直接參考 npm 的說明:</p>
 <p>https://www.npmjs.com/package/create-nx-workspace</p>
 <p><img src="/assets/images/2021-12-28-21-48-43.png" alt="" /></p>
@@ -140,14 +140,14 @@ It is important to have a clean git working directory before invoking a generato
 </blockquote>
 <p>或是看官方 youtube 教學:</p>
 <p><a href="https://youtu.be/XVJIXcC-7Kc">Nx in 100 seconds: Setup a new Nx workspace using its presets</a></p>
-<h3>3-2. Nx 的 workspace 圖示</h3>
+<h3 id="3-2-nx-的-workspace-圖示">3-2. Nx 的 workspace 圖示</h3>
 <p>除了圖示裡的這些，Nx workspace 也可以用來整合開發其他框架(最後面會補充)。</p>
 <p><img src="/assets/images/2021-12-28-22-18-03.png" alt="" /></p>
 <blockquote>
 <p>從靜態網頁框架、後端 nodejs 框架、前端框架到網站建置工具和最基礎的 js、html、css 都可以用 Nx 架構來整合</p>
 </blockquote>
-<h2>4. 快速上手 Nx Console 操作 (Generate、Run)</h2>
-<h3>4-1. Nx Console 簡介</h3>
+<h2 id="4-快速上手-nx-console-操作-generaterun">4. 快速上手 Nx Console 操作 (Generate、Run)</h2>
+<h3 id="4-1-nx-console-簡介">4-1. Nx Console 簡介</h3>
 <p>Nx 有提供一個介面讓人<strong>可以用點按方式去執行指令</strong>，就不用硬背一堆指令了，</p>
 <p>以下是關於這個套件的一些知識，</p>
 <p>因為這個介面有幫指令做分類，</p>
@@ -196,7 +196,7 @@ https://blog.nrwl.io/re-introducing-nx-console-a21fa9f4f668</p>
 </ul>
 </li>
 </ul>
-<h3>4-2. nx generate (常見的 collection)</h3>
+<h3 id="4-2-nx-generate-常見的-collection">4-2. nx generate (常見的 collection)</h3>
 <blockquote>
 <p>這裡是 2-6、2-7 定義的應用，如果看不懂可以往回看。</p>
 </blockquote>
@@ -222,7 +222,7 @@ https://blog.nrwl.io/re-introducing-nx-console-a21fa9f4f668</p>
 <p>Angular cli 預設的 collection。</p>
 </li>
 </ol>
-<h3>4-3. 產生 Library 有三個 schematic 可以用</h3>
+<h3 id="4-3-產生-library-有三個-schematic-可以用">4-3. 產生 Library 有三個 schematic 可以用</h3>
 <ul>
 <li><p><code>@schematics/angular</code></p>
 <p><img src="/assets/images/2021-12-28-22-58-21.png" alt="" /></p>
@@ -244,7 +244,7 @@ https://blog.nrwl.io/re-introducing-nx-console-a21fa9f4f668</p>
 <p>https://github.com/cyrilletuzi/vscode-angular-schematics/blob/main/src/defaults.ts</p>
 </li>
 </ul>
-<h3>4-4. nx run</h3>
+<h3 id="4-4-nx-run">4-4. nx run</h3>
 <p>同時 build 所有 projects 內有 build script 的專案。</p>
 <p><code>nx run-many --target=build --all --parallel</code></p>
 <p><img src="/assets/images/2021-12-28-23-01-03.png" alt="" /></p>
@@ -252,11 +252,11 @@ https://blog.nrwl.io/re-introducing-nx-console-a21fa9f4f668</p>
 <li>https://angular.tw/cli/run</li>
 <li>https://nx.dev/l/a/cli/run-many</li>
 </ul>
-<h2>5. 其他補充</h2>
-<h3>5-1. 常見的 Monorepo 架構開發工具</h3>
+<h2 id="5-其他補充">5. 其他補充</h2>
+<h3 id="5-1-常見的-monorepo-架構開發工具">5-1. 常見的 Monorepo 架構開發工具</h3>
 <p><img src="/assets/images/2021-12-28-23-03-34.png" alt="" /></p>
 <p>還有更多工具: https://github.com/korfuri/awesome-monorepo</p>
-<h3>5-2. 誤解: Nx 和 Yarn Workspace/Lerna 只能擇一使用?</h3>
+<h3 id="5-2-誤解-nx-和-yarn-workspacelerna-只能擇一使用">5-2. 誤解: Nx 和 Yarn Workspace/Lerna 只能擇一使用?</h3>
 <p>https://nx.dev/l/n/guides/lerna-and-nx#clarifying-misconceptions</p>
 <p><img src="/assets/images/2021-12-28-23-05-05.png" alt="" /></p>
 <p>功能沒有重疊，Nx 不是 package manager 也不是 JS-only 的工具。可一起用。</p>
@@ -266,18 +266,18 @@ https://blog.nrwl.io/re-introducing-nx-console-a21fa9f4f668</p>
 <li><a href="https://www.youtube.com/watch?v=Edv7ZeI8Bwc">How to Migrate From Lerna to Nx</a></li>
 <li><a href="https://www.youtube.com/watch?v=BO1rwynFBLM">Lerna/Yarn to Nx: Faster Build Times + Better Dev Ergonomics</a></li>
 </ul>
-<h3>5-3. 查看有哪些 Nx plugin 可以使用</h3>
+<h3 id="5-3-查看有哪些-nx-plugin-可以使用">5-3. 查看有哪些 Nx plugin 可以使用</h3>
 <p><code>nx list</code></p>
 <p>或到官網查看列表:
 https://nx.dev/community#community-plugin-list</p>
-<h3>5-4. Nx 13</h3>
+<h3 id="5-4-nx-13">5-4. Nx 13</h3>
 <p><img src="/assets/images/2021-12-28-23-07-16.png" alt="" /></p>
 <p>Webpack 5 Module Federation Plugin</p>
 <ul>
 <li>https://nx.dev/l/a/guides/setup-mfe-with-angular</li>
 <li>Micro Frontends with Angular using Module Federation - Manfred Steyer</li>
 </ul>
-<h3>5-5. Nx 學習資源</h3>
+<h3 id="5-5-nx-學習資源">5-5. Nx 學習資源</h3>
 <ul>
 <li><p>Nx 官網</p>
 <p>https://nx.dev/</p>

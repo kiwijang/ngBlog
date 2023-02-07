@@ -1,8 +1,8 @@
-<div class="NoteDescWrap"><h1>0202 [Javascript] CSV 檔數字千分位、字串都是數字</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"></div><span>更新時間: 2023/2/2 下午 06:13</span> | <span>新增時間: 2023/2/2 下午 06:13</span></div><h2>CSV 檔數字千分位、字串都是數字</h2>
-<h3>Demo</h3>
+<div class="NoteDescWrap"><h1>0202 [Javascript] CSV 檔數字千分位、字串都是數字</h1><div class="NoteDescWrap_desc"></div><div class="NoteDescWrap_time"></div><div class="NoteDescWrap_tags"></div><span>更新時間: 2023/2/2 下午 06:13</span> | <span>新增時間: 2023/2/2 下午 06:13</span></div><h2 id="csv-檔數字千分位字串都是數字">CSV 檔數字千分位、字串都是數字</h2>
+<h3 id="demo">Demo</h3>
 <p><a href="https://kiwijang.github.io/csvDemo/">Demo</a></p>
 <p><img src="/assets/images/2023-02-02-16-25-57.png" alt="" /></p>
-<h3>csv</h3>
+<h3 id="csv">csv</h3>
 <p><a href="https://zh.wikipedia.org/zh-tw/%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94%E5%80%BC">CSV - wiki</a></p>
 <p>逗號分隔值（Comma-Separated Values，CSV，有時也稱為字元分隔值，因為分隔字元也可以不是逗號），其檔案以純文字形式儲存表格資料（數字和文字）。純文字意味著該檔案是一個字元序列，不含必須像二進位數字那樣被解讀的資料。</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types">MIME text - MDN</a></p>
@@ -23,7 +23,7 @@ Bfwer123213f,2023-05-09,&quot;TWD -291,032,903.12312&quot; // 第3行
 <li><p><code>&quot;TWD 19,832,391,293&quot;</code> 貨幣有千分號所以要多加 <code>&quot;</code> 去做區隔，不然會被 csv 誤解。</p>
 </li>
 </ul>
-<h3>下載 csv</h3>
+<h3 id="下載-csv">下載 csv</h3>
 <pre><code class="language-typescript">
 // 我自訂的表格資料格式，要將這些資料轉換成上方用逗號個開的格式
 demoData = [
@@ -130,7 +130,7 @@ downloadCSV2() {
 </blockquote>
 </li>
 </ul>
-<h3>千分位加逗號</h3>
+<h3 id="千分位加逗號">千分位加逗號</h3>
 <pre><code class="language-typescript">  /**
    * 千分位加逗號
    * @param numberStr string | number
@@ -176,7 +176,7 @@ downloadCSV2() {
     return isMinus ? '-' + result : result;
   }
 </code></pre>
-<h2>小結</h2>
+<h2 id="小結">小結</h2>
 <ul>
 <li><p>設定格式的 Data URIs <code>data:text/csv;charset=utf-8,\ufeff</code> 包含 MIME 類型、編碼、<code>utf-8</code> 的十六進位用 <code>\ufeff</code> 表示。</p>
 </li>
