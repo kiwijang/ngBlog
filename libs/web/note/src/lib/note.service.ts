@@ -6,13 +6,13 @@ import { Injectable } from '@angular/core';
 export class NoteService {
 
   getHtmlText() {
-    return fetch('/notes/o7mp336qqwyjf1d0jefmg53.html');
+    return fetch('./notes/o7mp336qqwyjf1d0jefmg53.html');
   }
 
   /**
    * table of contents
    */
   getTOC() {
-    return fetch('/notes/o7mp336qqwyjf1d0jefmg53.json');
+    return fetch('./notes/o7mp336qqwyjf1d0jefmg53.json');
   }
 }
