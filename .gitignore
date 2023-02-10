@@ -45,6 +45,7 @@ Thumbs.db
 
 /ConsoleApp/markdown2html/markdown2html/bin/*
 /ConsoleApp/markdown2html/markdown2html/obj/*
+/ConsoleApp/markdown2html/.vs/*
 
 # windows server
 /docs/ngBlog/*

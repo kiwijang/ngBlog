@@ -9,14 +9,22 @@ using Markdig;
 using Markdig.Syntax;
 using Markdig.Extensions.Yaml;
 using Markdig.Extensions.AutoIdentifiers;
+using YamlDotNet.Core.Tokens;
+using System.Collections.Generic;
+using StreamStart = YamlDotNet.Core.Events.StreamStart;
+using System.Collections;
+using System.Reflection.PortableExecutable;
 using System.Reflection.Emit;
-using System.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace markdown2html
 {
   class Program
   {
+    static Dictionary<int, List<LevelObj>> levelDic = new Dictionary<int, List<LevelObj>>()
+    {
+      {0, new List<LevelObj>(){ new LevelObj() { key = "root", name = "root", level = 0 } } },
+    };
+
     static void Main(string[] args)
     {
       try
@@ -28,6 +36,31 @@ namespace markdown2html
           Console.WriteLine(Path.GetFileName(fileName));
           transformMd2Html(Path.GetFileName(fileName));
         }
+        for(int i = 2; i < levelDic.Count; i++)
+        {
+          Console.WriteLine(i.ToString());
+          List<LevelObj>? val;
+          levelDic.TryGetValue(i, out val);
+          val?.ForEach(y =>
+          {
+
+            y.parentKey = levelDic.First(x => x.Key == y.level - 1).Value.FirstOrDefault(z => {
+              string? n = z.name;
+              // 0drops 比較特殊，名字跟檔名不一，其他 name 都會跟檔名一樣，不用特別判斷
+              if (n == "pending notes")
+              {
+                n = "0drops";
+              }
+              return n?.ToUpper() == y.parentName?.ToUpper();
+            })?.key;
+          });
+        }
+
+        var serializer = new SerializerBuilder().JsonCompatible().Build();
+        var json = serializer.Serialize(levelDic);
+        // 邊欄
+        string filePath = $"..\\apps\\ng-blog\\src\\notes\\meta.json";
+        File.WriteAllText(filePath, serializer.Serialize(json));
 
         // 取得 ..\Dendron\notes\assets 裡的所有 assets
         string sourcePath = $"..\\Dendron\\notes\\assets\\images";
@@ -100,15 +133,39 @@ namespace markdown2html
               yamlObj.created = $"{createTime.ToShortDateString()} {createTime.ToShortTimeString()}";
               yamlObj.tags = obj.tags;
 
+              // {pKey: '', level: 1, Children: []}
+              string[] nameArr = markdownName.Split('.');
+              int level = nameArr.Length - 1;
+
+              List<LevelObj> level1 = new List<LevelObj>() { };
+              var level_obj = new LevelObj
+              {
+                key = obj.id,
+                name = obj.title,
+                level = level,
+                parentKey = level == 1 ? "root" : null,
+                parentName = level == 1 ? "root" : nameArr[level - 2],
+              };
+
+              if (levelDic.ContainsKey(level))
+              {
+                var dic = levelDic.FirstOrDefault(x => x.Key == level);
+                dic.Value.Add(level_obj);
+              }
+              else
+              {
+                levelDic.Add(level, new List<LevelObj>() { level_obj });
+              }
+
               //Console.WriteLine(yaml);
 
               //serializer.Serialize(Console.Out, yamlObj);
               // 轉換為 html
               var descHtmlText = $"<div class=\"NoteDescWrap\">" +
-                $"<h1>{yamlObj.title}</h1>" +
-                $"<div class=\"NoteDescWrap_desc\">{yamlObj.desc}</div>" +
-                $"<div class=\"NoteDescWrap_time\">" +
-                $"</div><div class=\"NoteDescWrap_tags\">";
+                  $"<h1>{yamlObj.title}</h1>" +
+                  $"<div class=\"NoteDescWrap_desc\">{yamlObj.desc}</div>" +
+                  $"<div class=\"NoteDescWrap_time\">" +
+                  $"</div><div class=\"NoteDescWrap_tags\">";
 
               for (int i = 0; i < yamlObj.tags?.Length; i++)
               {

@@ -15,4 +15,13 @@ namespace markdown2html
     public string? created { get; set; }
     public string[]? tags { get; set; }
   }
+
+  class LevelObj
+  {
+    public string? key { get; set; }
+    public string? name { get; set; }
+    public int? level { get; set; }
+    public string? parentKey { get; set; }
+    public string? parentName { get; set; }
+  }
 }

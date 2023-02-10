@@ -48,7 +48,7 @@ export class NoteComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     await this.getNote();
 
-    await this.getTOC()
+    await this.getTOC();
 
     // this.setupYT();
   }
@@ -60,13 +60,13 @@ export class NoteComponent implements OnInit, OnDestroy {
     script.src = '/assets/ytapi.js';
 
     this._renderer2.appendChild(this._document.head, script);
-    if ((window as any).YT) {
+    if (window.YT) {
       this.onYouTubeIframeAPIReady();
     }
   }
 
   onYouTubeIframeAPIReady() {
-    this.player = new (window as any).YT.Player('player', {
+    this.player = new window.YT.Player('player', {
       height: '196',
       width: '348',
       videoId: 'nfQkhXKk_IQ',
@@ -130,9 +130,8 @@ export class NoteComponent implements OnInit, OnDestroy {
   async getTOC() {
     const res = await this.noteService.getTOC();
     this.toc = await res.json();
-    console.log(this.toc)
+    console.log(this.toc);
   }
-
 
   stopVideo() {
     if (!this.player) return;
@@ -187,8 +186,13 @@ export class NoteComponent implements OnInit, OnDestroy {
   }
 }
 
-
 export type TOC = {
   value: string;
   level: string;
+};
+
+declare global {
+  interface Window {
+    YT: any;
+  }
 }
