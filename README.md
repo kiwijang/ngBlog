@@ -10,7 +10,7 @@ markdown 轉成 html 並可 deploy 到 Github Pages 上使用。
 - C#
 - Dendron (VSCode Extension)
 
-## 代辦清單
+## 待辦清單
 
 ### 技術
 
